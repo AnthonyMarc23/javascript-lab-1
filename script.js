@@ -89,7 +89,7 @@
 {
   function startGame() {
     let answer = prompt("Do you want to play?");
-    return answer;
+    return answer.toLowerCase();
   };
   
   function getInitWarrior() {
@@ -117,9 +117,9 @@
 
   function continueFight() {
     let answer = prompt("Do you wish to attack or run?");
-    if (answer === "attack") {
+    if (answer.toLowerCase() === "attack") {
       return true;
-    } else if (answer === "run") {
+    } else if (answer.toLowerCase() === "run") {
       endTheMatch();
     }
   }
