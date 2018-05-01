@@ -86,55 +86,95 @@
 //     console.log("A");
 //   } 
 // }
-
-
-let answer = prompt("Do you want to play?");
-
-if (answer === "yes") {
-  const WARRIOR_NAME = prompt("What is your name, Warrior?");
-  let yourHealth = 40;
-  let grantHealth = 10;
-  let yourWins = 0;
-  let yourDamage = 0;
-  let grantDamage = 0;
-
-
-  function damage() {
-    return Math.ceil(Math.random() * 2);
-  }
-
-  while (yourWins < 3) {
-
-    // Compute damage against Grant
-    yourDamage = damage();
-    grantHealth -= yourDamage;
-    console.log(`${WARRIOR_NAME} hits Grant for ${yourDamage}. Grant has ${grantHealth} left!`);
-
-    // Test to see if we have defeated Grant or have been defeated
-    if (yourWins === 2 && grantHealth <= 0) {
-      console.log(`${WARRIOR_NAME}, you are victorious over the evil wizard Grant! Congratulations!`);
-      break;
-    } else if (yourWins < 2 && grantHealth <= 0) {
-      console.log ("You have defeated Grant... but it was just an illusion!");
-      grantHealth = 10;
-      yourWins++;
+{
+  function startGame() {
+    let answer = prompt("Do you want to play?");
+    return answer;
+  };
+  
+  function getInitWarrior() {
+    let player = {
+      name: "",
+      health: 40,
+      damage: "",
+      wins: 0
     }
+    return player;
+  }
+  
+  function getInitGrant() {
+    let enemy = {
+      health: 10,
+      damage: "",
+      wins: 0
+    }
+    return enemy;
+  }
+  
+  function getDamage() {
+    return Math.ceil(Math.random() * 5);
+  };
 
-    // Compute damage against us
-    grantDamage = damage();
-    yourHealth -= grantDamage;
-    console.log(`Grant hits you for ${grantDamage}. You have ${yourHealth} left.`);
-
-    // See if Grant beat us
-    if (yourHealth <= 0) {
-      console.log(`The evil wizard Grant is victorious. Sorry, ${WARRIOR_NAME}.`);
-      break;
-    } 
+  function continueFight() {
+    let answer = prompt("Do you wish to attack or run?");
+    if (answer === "attack") {
+      return true;
+    } else if (answer === "run") {
+      endTheMatch();
+    }
+  }
+  
+  function endTheMatch() {
+    console.log("You ran away from the mighty Job Wizard, Grant. Pray he doesn't find you.")
   }
 
-} else {
-  console.log("Maybe you will fight next time.")
+  function startCombat(warrior, grant) {
+    while (warrior.wins < 3) {
+      if (!continueFight()) {
+        break;
+      }
+
+      // Compute damage against Grant
+      warrior.damage = getDamage();
+      grant.health -= warrior.damage;
+      console.log(`${warrior.name} hits Grant for ${warrior.damage}. Grant has ${grant.health} left!`);
+  
+      // Test to see if we have defeated Grant or have been defeated
+      if (warrior.wins === 2 && grant.health <= 0) {
+        console.log(`${warrior.name}, you are victorious over the evil wizard Grant! Congratulations!`);
+        break;
+      } else if (warrior.wins < 2 && grant.health <= 0) {
+        console.log ("You have defeated Grant... but it was just an illusion!");
+        grant.health = 10;
+        warrior.wins++;
+      }
+  
+      // Compute damage against us
+      grant.damage = getDamage();
+      warrior.health -= grant.damage;
+      console.log(`Grant hits ${warrior.name} for ${grant.damage}. ${warrior.name} has ${warrior.health} left.`);
+  
+      // See if Grant beat us
+      if (warrior.health <= 0) {
+        console.log(`The evil wizard Grant is victorious. Sorry, ${warrior.name}.`);
+        break;
+      } 
+    }
+  };
+  
+  if (startGame() === "yes") {
+  
+    let warrior = getInitWarrior();
+    warrior.name = prompt("What is your name, warrior?");
+    let grant = getInitGrant();
+    startCombat(warrior, grant);
+  
+  } else {
+    console.log("Maybe you will fight next time.")
+  }
+  
 }
+
 
 
 
