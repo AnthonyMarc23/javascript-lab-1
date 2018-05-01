@@ -125,7 +125,7 @@
   }
   
   function endTheMatch() {
-    console.log("You ran away from the mighty Job Wizard, Grant. Pray he doesn't find you.")
+    console.log("You ran away from the mighty Job Wizard, Grant. Pray he doesn't find and fire you.")
   }
 
   function startCombat(warrior, grant) {
@@ -141,10 +141,10 @@
   
       // Test to see if we have defeated Grant or have been defeated
       if (warrior.wins === 2 && grant.health <= 0) {
-        console.log(`${warrior.name}, you are victorious over the evil wizard Grant! Congratulations!`);
+        console.log(`${warrior.name}, you are victorious over the evil Job Wizard Grant! Congratulations, you are employed!`);
         break;
       } else if (warrior.wins < 2 && grant.health <= 0) {
-        console.log ("You have defeated Grant... but it was just an illusion!");
+        console.log ("You have defeated Grant... but he was just an illusion of interviews!");
         grant.health = 10;
         warrior.wins++;
       }
@@ -156,7 +156,7 @@
   
       // See if Grant beat us
       if (warrior.health <= 0) {
-        console.log(`The evil wizard Grant is victorious. Sorry, ${warrior.name}.`);
+        console.log(`The evil Job Wizard Grant is victorious. Sorry, ${warrior.name}, you are unemployed.`);
         break;
       } 
     }
@@ -165,12 +165,12 @@
   if (startGame() === "yes") {
   
     let warrior = getInitWarrior();
-    warrior.name = prompt("What is your name, warrior?");
+    warrior.name = prompt("What is your name, job warrior?");
     let grant = getInitGrant();
     startCombat(warrior, grant);
   
   } else {
-    console.log("Maybe you will fight next time.")
+    console.log("Maybe you will find a job next time.")
   }
   
 }
